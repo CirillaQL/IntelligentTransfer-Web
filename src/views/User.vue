@@ -25,6 +25,7 @@
         class="upload-demo"
         ref="upload"
         :action="url"
+        :with-credentials="true"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
