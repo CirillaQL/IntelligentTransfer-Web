@@ -13,9 +13,7 @@
     </el-menu-item>
     <el-menu-item index="3" disabled>查看个人</el-menu-item>
     <el-menu-item index="4"
-      ><a :href="ToRegisterDriver()" target="_blank"
-        >注册成为司机</a
-      ></el-menu-item
+      ><a href="/about" target="_blank">注册成为司机</a></el-menu-item
     >
   </el-menu>
   <el-row>
@@ -59,7 +57,7 @@
 export default {
   data() {
     return {
-      activeIndex: "1",
+      activeIndex: "4",
       url: "http://localhost:40000/user/" + this.$route.params.id + "/upload",
       fileList: [],
       userUrl: "http://localhost:40000/user/" + this.$route.params.id,
@@ -91,14 +89,7 @@ export default {
     downloadFile() {},
     getBaseUrl() {
       console.log(this.$route.path);
-      return this.$route.path;
-    },
-    ToRegisterDriver() {
-      console.log(this.$route.params.id);
-      var url =
-        "http://localhost:8080/user/" +
-        this.$route.params.id +
-        "/registerDriver";
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/home";
       return url;
     },
   },

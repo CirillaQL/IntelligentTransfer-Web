@@ -83,7 +83,7 @@ export default {
             toGo.push("/login");
           } else {
             cookiesSet.set("token", response.data.token);
-            toGo.push("/user/" + response.data.userId);
+            toGo.push("/user/" + response.data.userId + "/home");
           }
         });
     },

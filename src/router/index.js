@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import Test from '../views/Test.vue'
+import RegisterDriver from '../views/DriverRegister.vue'
 
 const routes = [
   {
@@ -31,7 +32,7 @@ const routes = [
     }
   },
   {
-    path: '/user/:id',
+    path: '/user/:id/home',
     name: 'user',
     meta:{requireAuth:true},
     component: User
@@ -41,6 +42,12 @@ const routes = [
     name: 'Test',
     meta:{requireAuth:true},
     component: Test
+  },
+  {
+    path: '/user/:id/registerDriver',
+    name: 'RegisterDriver',
+    meta:{requireAuth:true},
+    component: RegisterDriver
   }
 ]
 
