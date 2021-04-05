@@ -21,7 +21,14 @@
   <el-row>
     <el-col :span="12">
       <el-link href="/template.xlsx" download="模板.xlsx">
-        <el-button id="downloadTemplate" type="primary">下载附件</el-button>
+        <el-tooltip
+          class="templateDownloadTip"
+          effect="dark"
+          content="点击此处下载导入会议模板"
+          placement="top-start"
+        >
+          <el-button id="downloadTemplate" type="primary">下载附件</el-button>
+        </el-tooltip>
       </el-link>
     </el-col>
     <el-col :span="12">
@@ -56,6 +63,7 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
 export default {
   data() {
     return {
@@ -79,11 +87,13 @@ export default {
     },
     handleSuccess() {
       console.log("Success");
-      this.$alert("上传会议文件成功！");
+      ElMessage("上传会议文件成功！");
+      // this.$alert("上传会议文件成功！");
     },
     handleError() {
       console.log("Failed");
-      this.$alert("上传会议文件失败！请重试");
+      ElMessage("上传会议文件失败！请重试");
+      // this.$alert("上传会议文件失败！请重试");
     },
     submitUpload() {
       this.$refs.upload.submit();

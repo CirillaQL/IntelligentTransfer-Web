@@ -12,6 +12,7 @@ import VueCookies from 'vue3-cookies'
 
 const app = createApp(App)
 app.config.globalProperties.$axios = axios
+axios.defaults.withCredentials=true
 app.use(VueCookies,{
     expireTimes: "2h"
 })
