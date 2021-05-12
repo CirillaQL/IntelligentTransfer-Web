@@ -1,5 +1,5 @@
-
 <template>
+<div class="background">
   <el-menu
     :default-active="activeIndex1"
     class="el-menu-demo"
@@ -9,9 +9,18 @@
     text-color="#fff"
     active-text-color="#ffd04b"
   >
-    <el-menu-item index="1">个人中心 </el-menu-item>
-    <el-menu-item index="2">查看个人</el-menu-item>
-    <el-menu-item index="3">注册成为司机</el-menu-item>
+    <el-menu-item index="1">
+      <a :href="jumpToBaseUrl()">个人中心 </a>
+    </el-menu-item>
+    <el-menu-item index="2">
+      <a :href="jumpToOrders()">查看个人订单</a>
+    </el-menu-item>
+    <el-menu-item index="3">
+      <a :href="jumpToMeetings()">查看个人会议</a>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <a :href="jumpToRegisterDriver()" target="_blank">注册成为司机</a>
+    </el-menu-item>
   </el-menu>
   <el-container>
     <el-main>
@@ -22,18 +31,16 @@
             <el-form
               ref="form"
               :model="form"
-              label-width="80px"
-              :label-position="left"
             >
               <el-form-item label="车牌号">
                 <el-input v-model="form.name"></el-input>
               </el-form-item>
               <el-form-item label="车辆类型">
                 <el-radio-group v-model="form.resource">
-                  <el-radio label="1">四座小车(1-2人)</el-radio>
-                  <el-radio label="2">别克商务(3-5人)</el-radio>
-                  <el-radio label="3">考斯特(6-13人)</el-radio>
-                  <el-radio label="4">大巴(15-40人)</el-radio>
+                  <el-radio label="1" border>四座小车(1-2人)</el-radio>
+                  <el-radio label="2" border>别克商务(3-5人)</el-radio>
+                  <el-radio label="3" border>考斯特(6-13人)</el-radio>
+                  <el-radio label="4" border>大巴车(15-40人)</el-radio>
                 </el-radio-group>
               </el-form-item>
               <el-form-item>
@@ -47,13 +54,14 @@
       </el-row>
     </el-main>
   </el-container>
+</div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      activeIndex: "1",
+      activeIndex: "4",
       form: {
         name: "",
         resource: "",
@@ -77,6 +85,22 @@ export default {
           console.log(response.data.msg);
         });
     },
+    jumpToBaseUrl() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/home";
+      return url;
+    },
+    jumpToOrders() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/orders";
+      return url;
+    },
+    jumpToRegisterDriver() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/registerDriver";
+      return url;
+    },
+    jumpToMeetings(){
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/meeting";
+      return url;
+    }
   },
 };
 </script>
@@ -90,10 +114,8 @@ export default {
   /*统一设置高度为100%*/
   height: 100%;
 }
-.el-radio {
-  display: block;
-  line-height: 23px;
-  white-space: normal;
-  margin-right: 0;
+
+.el-radio{
+  margin: 10px;
 }
 </style>

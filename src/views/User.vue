@@ -1,4 +1,5 @@
 <template>
+<div class="background">
   <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
@@ -9,17 +10,25 @@
     active-text-color="#ffd04b"
   >
     <el-menu-item index="1">
-      <a :href="getBaseUrl()">个人中心 </a>
+      <a :href="jumpToBaseUrl()">个人中心 </a>
     </el-menu-item>
-    <el-menu-item index="3" disabled>查看个人</el-menu-item>
-    <el-menu-item index="4"
-      ><a :href="ToRegisterDriver()" target="_blank"
-        >注册成为司机</a
-      ></el-menu-item
-    >
+    <el-menu-item index="2">
+      <a :href="jumpToOrders()">查看个人订单</a>
+    </el-menu-item>
+    <el-menu-item index="3">
+      <a :href="jumpToMeetings()">查看个人会议</a>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <a :href="jumpToRegisterDriver()" target="_blank">注册成为司机</a>
+    </el-menu-item>
   </el-menu>
   <el-row>
     <el-col :span="12">
+      
+      <div class="helpImg">
+        <el-image :src="helpImg"></el-image>
+      </div>
+      <div class="demonstration">使用教程</div>
       <el-link href="/template.xlsx" download="模板.xlsx">
         <el-tooltip
           class="templateDownloadTip"
@@ -60,6 +69,7 @@
       </el-upload>
     </el-col>
   </el-row>
+</div>
 </template>
 
 <script>
@@ -71,6 +81,7 @@ export default {
       url: "http://localhost:40000/user/" + this.$route.params.id + "/upload",
       fileList: [],
       userUrl: "http://localhost:40000/user/" + this.$route.params.id,
+      helpImg: require("../assets/help.png"),
     };
   },
   methods: {
@@ -88,29 +99,37 @@ export default {
     handleSuccess() {
       console.log("Success");
       ElMessage("上传会议文件成功！");
-      // this.$alert("上传会议文件成功！");
     },
     handleError() {
       console.log("Failed");
       ElMessage("上传会议文件失败！请重试");
-      // this.$alert("上传会议文件失败！请重试");
     },
     submitUpload() {
       this.$refs.upload.submit();
     },
     downloadFile() {},
-    getBaseUrl() {
-      console.log(this.$route.path);
-      return this.$route.path;
-    },
-    ToRegisterDriver() {
-      console.log(this.$route.params.id);
-      var url =
-        "http://localhost:8080/user/" +
-        this.$route.params.id +
-        "/registerDriver";
+    jumpToBaseUrl() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/home";
       return url;
     },
+    jumpToOrders() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/orders";
+      return url;
+    },
+    jumpToRegisterDriver() {
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/registerDriver";
+      return url;
+    },
+    jumpToMeetings(){
+      var url = "http://localhost:8080/user/" + this.$route.params.id + "/meeting";
+      return url;
+    }
+  },
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'background:#ffffff')
+  },
+  beforeDestroy() {
+    document.querySelector('body').removeAttribute('style')
   },
 };
 </script>
@@ -129,15 +148,40 @@ body,
 .el-container {
   margin: 30px;
 }
+
+.helpImg {
+background-color: transparent !important;/* 背景透明 */
+}
+
+.background {
+  background: url("../assets/background.jpg") no-repeat;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
+}
+
 .el-upload {
   margin-top: 80px;
   justify-content: center;
 }
+
+.demonstration{
+  margin-top: 50px;
+}
+
 #downloadTemplate {
   margin-top: 80px;
   justify-content: center;
 }
 #uploadButton {
   margin-left: 20px;
+}
+
+.el-image {
+  margin-top: 20px;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 </style>

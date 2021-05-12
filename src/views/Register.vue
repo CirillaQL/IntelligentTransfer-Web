@@ -189,6 +189,12 @@ export default {
       // console.log(CodeToText[arr[0]], CodeToText[arr[1]], CodeToText[arr[2]])
     },
   },
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'background:#09C7F7')
+  },
+  beforeDestroy() {
+    document.querySelector('body').removeAttribute('style')
+  },
 };
 </script>
 

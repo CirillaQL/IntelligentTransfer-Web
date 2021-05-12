@@ -6,6 +6,8 @@ import Register from '../views/Register.vue'
 import User from '../views/User.vue'
 import Test from '../views/Test.vue'
 import RegisterDriver from '../views/DriverRegister.vue'
+import Orders from '../views/Order.vue'
+import Meeting from '../views/Meeting.vue'
 
 const routes = [
   {
@@ -48,6 +50,18 @@ const routes = [
     name: 'RegisterDriver',
     meta:{requireAuth:true},
     component: RegisterDriver
+  },
+  {
+    path: '/user/:id/orders',
+    name: 'Orders',
+    meta:{requireAuth:true},
+    component:Orders
+  },
+  {
+    path: '/user/:id/meeting',
+    name: 'Meeting',
+    meta:{requireAuth:true},
+    component:Meeting
   }
 ]
 

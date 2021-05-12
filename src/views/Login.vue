@@ -9,7 +9,7 @@
       label-width="0px"
       class="login-page"
     >
-      <h3 class="title">登录</h3>
+      <h3 class="title">智能接 登录</h3>
       <el-form-item prop="username">
         <el-input
           type="text"
@@ -83,6 +83,7 @@ export default {
             toGo.push("/login");
           } else {
             cookiesSet.set("token", response.data.token);
+            console.log("/user/" + response.data.userId + "/home");
             toGo.push("/user/" + response.data.userId + "/home");
           }
         });
@@ -90,6 +91,12 @@ export default {
     register() {
       this.$router.push("/register");
     },
+  },
+  beforeCreate() {
+    document.querySelector('body').setAttribute('style', 'background:#09C7F7')
+  },
+  beforeDestroy() {
+    document.querySelector('body').removeAttribute('style')
   },
 };
 </script>
