@@ -80,7 +80,7 @@
           type="password"
           v-model="RegisterForm.password"
           auto-complete="off"
-          placeholder="密码(选填)"
+          placeholder="密码"
         />
       </el-form-item>
       <el-form-item prop="idCard">
@@ -189,12 +189,12 @@ export default {
       // console.log(CodeToText[arr[0]], CodeToText[arr[1]], CodeToText[arr[2]])
     },
   },
-  beforeCreate() {
-    document.querySelector('body').setAttribute('style', 'background:#09C7F7')
-  },
-  beforeDestroy() {
-    document.querySelector('body').removeAttribute('style')
-  },
+  // beforeCreate() {
+  //   document.querySelector('body').setAttribute('style', 'background:#09C7F7')
+  // },
+  // beforeDestroy() {
+  //   document.querySelector('body').removeAttribute('style')
+  // },
 };
 </script>
 
@@ -202,6 +202,7 @@ export default {
 .register-container {
   width: 100%;
   height: 100%;
+  background: #09C7F7;
 }
 .register-page {
   -webkit-border-radius: 5px;

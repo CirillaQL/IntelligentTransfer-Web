@@ -1,34 +1,48 @@
 <template>
-<div class="background">
+<div class="user-background">
   <el-menu
     :default-active="activeIndex"
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
-    background-color="#545c64"
+    background-color="#1E90FF"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
     <el-menu-item index="1">
-      <a :href="jumpToBaseUrl()">个人中心 </a>
+      <el-link :underline="false" :href="jumpToBaseUrl()">个人中心 </el-link>
     </el-menu-item>
     <el-menu-item index="2">
-      <a :href="jumpToOrders()">查看个人订单</a>
+      <el-link :underline="false" :href="jumpToOrders()">查看个人订单</el-link>
     </el-menu-item>
     <el-menu-item index="3">
-      <a :href="jumpToMeetings()">查看个人会议</a>
+      <el-link :underline="false" :href="jumpToMeetings()">查看个人会议</el-link>
     </el-menu-item>
     <el-menu-item index="4">
-      <a :href="jumpToRegisterDriver()" target="_blank">注册成为司机</a>
+      <el-link :underline="false" :href="jumpToRegisterDriver()">司机页面</el-link>
     </el-menu-item>
   </el-menu>
   <el-row>
-    <el-col :span="12">
-      
-      <div class="helpImg">
-        <el-image :src="helpImg"></el-image>
+    <el-col :span="24">
+          <div class="carouselShow">
+          <el-carousel type="card" height="450px" >
+          <el-carousel-item>
+            <img src="../assets/carousel-1.jpg" class="carousel_image_type">
+          </el-carousel-item>
+          <el-carousel-item>
+            <img src="../assets/carousel-3.jpg" class="carousel_image_type">
+          </el-carousel-item>
+          <el-carousel-item>
+            <img src="../assets/carousel-4.jpg" class="carousel_image_type">
+          </el-carousel-item>
+        </el-carousel>
       </div>
-      <div class="demonstration">使用教程</div>
+    </el-col>
+  </el-row>
+  <el-row>
+    <el-col :span="12">
+      <el-card class="downloadCard" shadow="always">
+        <h2>点击此处下载会议模板</h2>
       <el-link href="/template.xlsx" download="模板.xlsx">
         <el-tooltip
           class="templateDownloadTip"
@@ -39,8 +53,11 @@
           <el-button id="downloadTemplate" type="primary">下载附件</el-button>
         </el-tooltip>
       </el-link>
+      </el-card>
     </el-col>
     <el-col :span="12">
+      <el-card class="downloadCard" shadow="always">
+        <h2>点击此处上传文件信息</h2>
       <el-upload
         class="upload-demo"
         ref="upload"
@@ -67,6 +84,7 @@
           <div class="el-upload__tip">上传会议的Excel文件</div>
         </template>
       </el-upload>
+      </el-card>
     </el-col>
   </el-row>
 </div>
@@ -125,12 +143,10 @@ export default {
       return url;
     }
   },
-  beforeCreate() {
-    document.querySelector('body').setAttribute('style', 'background:#ffffff')
-  },
-  beforeDestroy() {
-    document.querySelector('body').removeAttribute('style')
-  },
+  beforeRouteEnter(to,from,next){
+    document.querySelector('body').setAttribute('style','background-color:#fff');
+    next();
+  }
 };
 </script>
 
@@ -153,17 +169,12 @@ body,
 background-color: transparent !important;/* 背景透明 */
 }
 
-.background {
-  background: url("../assets/background.jpg") no-repeat;
-  background-position: center;
-  height: 100%;
-  width: 100%;
-  background-size: cover;
-  position: fixed;
+.user-background{
+  background: #fff;
 }
 
 .el-upload {
-  margin-top: 80px;
+  margin-top: 60px;
   justify-content: center;
 }
 
@@ -183,5 +194,17 @@ background-color: transparent !important;/* 背景透明 */
   margin-top: 20px;
   margin-left: 40px;
   margin-right: 40px;
+}
+
+.downloadCard{
+  margin-top: 20px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.carousel_image_type{
+  width: 70%;
+  height: 100%;
 }
 </style>

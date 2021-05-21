@@ -5,21 +5,21 @@
     class="el-menu-demo"
     mode="horizontal"
     @select="handleSelect"
-    background-color="#545c64"
+    background-color="#1E90FF"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
     <el-menu-item index="1">
-      <a :href="jumpToBaseUrl()">个人中心 </a>
+      <el-link :underline="false" :href="jumpToBaseUrl()">个人中心 </el-link>
     </el-menu-item>
     <el-menu-item index="2">
-      <a :href="jumpToOrders()">查看个人订单</a>
+      <el-link :underline="false" :href="jumpToOrders()">查看个人订单</el-link>
     </el-menu-item>
     <el-menu-item index="3">
-      <a :href="jumpToMeetings()">查看个人会议</a>
+      <el-link :underline="false" :href="jumpToMeetings()">查看个人会议</el-link>
     </el-menu-item>
     <el-menu-item index="4">
-      <a :href="jumpToRegisterDriver()" target="_blank">注册成为司机</a>
+      <el-link :underline="false" :href="jumpToRegisterDriver()">司机页面</el-link>
     </el-menu-item>
   </el-menu>
   <el-row>
@@ -27,11 +27,11 @@
       <div class="title">当前订单信息</div>
       <el-table
         ref="singleTable"
-    :data="tableData"
-    highlight-current-row
-    @current-change="handleCurrentChange"
-    @row-click="handleRowClick"
-    style="width: 100%"
+        :data="tableData"
+        highlight-current-row
+        @current-change="handleCurrentChange"
+        @row-click="handleRowClick"
+        style="width: 100%"
       >
         <el-table-column type="index" width="50"> </el-table-column>
         <el-table-column property="StartDate" label="日期" width="120">
@@ -48,7 +48,7 @@
         </el-table-column>
         <el-table-column property="UserPhone" label="电话"> </el-table-column>
       </el-table>
-      <el-button id="deleteOrder" @click="deleteOrder">取消订单</el-button>
+      <el-button id="deleteOrder" @click="deleteOrder" type="danger">取消订单</el-button>
     </el-col>
     <el-col :span="12">
       <div class="tableInfo">修改订单信息</div>
@@ -73,39 +73,8 @@
           placeholder="电话"
         />
       </el-form-item>
-      <el-form-item prop="startdate">
-        <el-input
-          type="text"
-          v-model="EditForm.startdate"
-          auto-complete="off"
-          placeholder="出发日期"
-        />
-      </el-form-item>
-      <el-form-item prop="starttime">
-        <el-input
-          type="text"
-          v-model="EditForm.starttime"
-          auto-complete="off"
-          placeholder="出发时间"
-        />
-      </el-form-item>
-      <el-form-item prop="fromaddress">
-        <el-input
-          type="text"
-          v-model="EditForm.fromaddress"
-          auto-complete="off"
-          placeholder="出发地"
-        />
-      </el-form-item>
-      <el-form-item prop="toaddress">
-        <el-input
-          type="text"
-          v-model="EditForm.toaddress"
-          auto-complete="off"
-          placeholder="目的地"
-        />
-      </el-form-item>
       </el-form>
+      <el-button class="update-order" @click="updateOrder" type="primary">需修改订单信息</el-button>
     </el-col>
   </el-row>
 </div>
@@ -122,11 +91,8 @@ export default {
       EditForm: {
         username: "",
         userphone: "",
-        startdate: "",
-        starttime: "",
-        fromaddress: "",
-        toaddress: "",
       },
+      choseUUid: null,
       currentRow: null
     };
   },
@@ -176,12 +142,9 @@ export default {
     handleRowClick() {
       // 获取当前选中的数据
       console.log(this.currentRow)
+      this.choseUUid = this.currentRow.Id
       this.EditForm.username = this.currentRow.UserName
       this.EditForm.userphone = this.currentRow.UserPhone
-      this.EditForm.startdate = this.currentRow.StartDate
-      this.EditForm.starttime = this.currentRow.StartTime
-      this.EditForm.fromaddress = this.currentRow.FromAddress
-      this.EditForm.toaddress = this.currentRow.ToAddress
     },
     deleteOrder(){
       var url = "http://localhost:40000/user/" + this.$route.params.id + "/deleteOrder/"+this.currentRow.Id;
@@ -212,17 +175,24 @@ export default {
           })
         });
         }
-      },
+    },
+    updateOrder(){
+      console.log(this.choseUUid)
+      var jsonInfo = {
+        UUid: this.choseUUid,
+        UserName: this.EditForm.username,
+        UserPhone: this.EditForm.userphone,
+      }
+      var url = "http://localhost:40000/user/" + this.$route.params.id +"/updateOrder"
+      this.axios.post(url,jsonInfo)
+        .then(function (response){
+          console.log(response)
+        })
+    }
   },
   created () {
     this.getinfo();
   },
-  beforeCreate () {
-    document.querySelector('body').setAttribute('style', 'background:#fff')
-  },
-  beforeDestroy () {
-    document.querySelector('body').setAttribute('style', 'background:#***')
-  }
 };
 </script>
 
